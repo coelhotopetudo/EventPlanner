@@ -7,4 +7,4 @@ Via site do evento, o inscrito gera o código e pode imprimir ou fotografar/copi
 
 O organizador do evento, munido de um smartphone, pode fazer a leitura do QR code do inscrito e identificariam o mesmo. Essa leitura poderia ser feita com base na impressão do código ou exibição do mesmo no celular do inscrito.
 
-Veja/mantenha issues para especificação do projeto.
+Veja/mantenha [issues](https://github.com/coelhotopetudo/qrevento/issues) para especificação do projeto.
