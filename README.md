@@ -1,7 +1,7 @@
-qrevento
+EventPlanner
 ========
 
-QR code para eventos
+QR code para eventos.
 
 - A partir do cadastro de inscrições são geradas etiquetas com e-mail e nome do inscrito, mantidos no QR, que serão coladas no crachá.
 - O celular carrega as informações de salas e participantes, via webservice, em uma tabela local no celular.
