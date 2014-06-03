@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<event>
+<rooms>
+	<room id="1" name="Sala 1">
+		<lectures>
+			<lecture id="1" title="Palestra 1" date="01/05/2014 12:00">
+				<members>
+					<m id="1"/>
+					<m id="2"/>
+				</members>
+			</lecture>
+			<lecture id="2" title="Palestra 2" date="02/05/2014 13:00">
+				<members>
+					<m id="1"/>
+					<m id="2"/>
+				</members>
+			</lecture>
+			<lecture id="3" title="Palestra 3" date="01/05/2014 14:00">
+				<members>
+					<m id="1"/>
+					<m id="2"/>
+				</members>
+			</lecture>
+		</lectures>
+	</room>
+	<room id="2" name="Sala 2">
+		<lectures>
+			<lecture id="4" title="Palestra 4" date="01/05/2014 14:00">
+				<members>
+					<m id="1"/>
+					<m id="2"/>
+				</members>
+			</lecture>
+			<lecture id="5" title="Palestra 5" date="02/05/2014 15:00">
+				<members>
+					<m id="1"/>
+					<m id="2"/>
+				</members>
+			</lecture>
+		</lectures>
+	</room>
+	<room id="3" name="Sala 3">
+		<lectures>
+			<lecture id="6" title="Palestra 6" date="01/05/2014 12:00">
+			</lecture>
+		</lectures>
+	</room>
+	<room id="4" name="Sala 4">
+		<lectures>
+			<lecture id="6" title="Palestra 6" date="01/05/2014 12:00">
+			</lecture>
+		</lectures>
+	</room>
+</rooms>
+
+	<members>
+		<m id="1" n="Fabiano Kuss" e="fabiano.kuss@gmail.com"/>
+		<m id="2" n="Fabiano Serpro" e="fabiano.kuss@serpro.gov.br"/>
+	</members>
+</event>
