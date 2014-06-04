@@ -1,8 +1,8 @@
-script: cd EventPlanner
-
 language: android
 android:
   components:
     - build-tools-19.0.2
 
-install: ant debug
+script: 
+    - cd EventPlanner
+    - ant debug
