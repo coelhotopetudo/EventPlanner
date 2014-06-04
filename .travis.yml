@@ -1,4 +1,4 @@
-script: cd jones
+script: cd EventPlanner
 
 language: android
 android:
