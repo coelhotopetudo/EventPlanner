@@ -111,7 +111,6 @@ public class AttendeeConfirm extends Activity {
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		if( ACTIVITY_RESULT_QR_DRDROID == requestCode 
@@ -134,6 +133,7 @@ public class AttendeeConfirm extends Activity {
 				
 			
 			EventHelper db = new EventHelper(this);
+			// XXX Fabiano: aqui não deveria estar relacionado com a lecture corrente? 
 			Attendee a = db.getAttendeeByMail(qrResults[2]);
 			if(a.getId() > 0)
 				report.setText(a.getName());
