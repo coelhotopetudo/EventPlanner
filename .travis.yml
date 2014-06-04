@@ -1,3 +1,4 @@
+cd EventPlanner
 language: android
 android:
   components:
