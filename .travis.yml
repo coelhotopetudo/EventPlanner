@@ -1,4 +1,5 @@
-cd EventPlanner
+script: cd jones
+
 language: android
 android:
   components:
