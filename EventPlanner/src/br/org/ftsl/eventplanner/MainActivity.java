@@ -42,6 +42,15 @@ public class MainActivity extends Activity {
 		}
 	}
 	
+	public void showLecture(View view) {
+		Intent intent = new Intent(this, LectureControl.class);
+		try{
+			startActivity(intent);
+		}catch(Exception e){
+			e.getMessage();
+		}
+		
+	}	
 	
 	public void config(View view) {
 		Intent intent = new Intent(this, Configuration.class);

@@ -6,7 +6,12 @@ public class Room {
 	private String name;
  
     public Room(){}
- 
+    public Room(int id, String name) {
+        super();
+        this._id = id;
+        this.name = name;
+    }
+    
     public Room(String name) {
         super();
         this.name = name;

@@ -3,12 +3,14 @@ package br.org.ftsl.eventplanner;
 import java.util.List;
 
 import br.org.ftsl.eventplanner.R;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import br.org.ftsl.common.Utils;
+import br.org.ftsl.eventplanner.db.Attendee;
 import br.org.ftsl.eventplanner.db.Config;
 import br.org.ftsl.eventplanner.db.EventHelper;
 import br.org.ftsl.eventplanner.db.Lecture;
@@ -138,6 +140,12 @@ public class Configuration extends Activity {
 			return rootView;
 		}
 	}
+	
+	public void setServer(View view){
+		EventHelper ev = new EventHelper(this);
+		ev.setConfig(new Config(SERVERNAME, ""+urlServer.getText()));
+	}
+	
 	public void getData(View view) {
 		
 		EventHelper ev = new EventHelper(this);
@@ -148,6 +156,7 @@ public class Configuration extends Activity {
 		}
 		WSFunctions ws = new WSFunctions();
 		if(ws.getDocFromUrl("http://"+urlServer.getText()+"/ftsl/dados.xml") != null){
+			insertAttendee(ws.doc);
 			insertRooms(ws.doc);
 			Utils.showMessage("Sucesso", "Dados atualizados com sucesso", this);
 			loadEventData(null);
@@ -155,15 +164,37 @@ public class Configuration extends Activity {
 		
 	}
 	
-	public void setServer(View view){
+	private void insertAttendee(Document doc){
 		EventHelper ev = new EventHelper(this);
-		ev.setConfig(new Config(SERVERNAME, ""+urlServer.getText()));
+		ev.deleteAllAttendee();
+		if(doc == null){
+			Utils.showMessage("Erro", "Não foi possivel carregar o arquivo", this);
+			return;
+		}
+		NodeList nodeList = doc.getElementsByTagName("attendees");
+		if(nodeList.getLength() < 1){
+			Utils.showMessage("Erro", "Nenhum participante para o evento", this);
+			return;
+		}
+		
+		Node nodeAtt = nodeList.item(0);
+		
+		NodeList nodeListAtt = ((Element)nodeAtt).getElementsByTagName("m");
+		
+		for(int i =0; i < nodeListAtt.getLength(); i++){
+			Node node = nodeListAtt.item(i);
+			String id = ((Element)node).getAttribute("id");
+			String name = ((Element)node).getAttribute("n");
+			String mail = ((Element)node).getAttribute("e");
+			ev.addAttendee(new Attendee(Integer.parseInt(id), name, mail));
+		}
 	}
 	
 	private void insertRooms(Document doc){
 		EventHelper ev = new EventHelper(this);
 		ev.deleteAllRoom();
 		ev.deleteAllLecture();
+		ev.deleteAllAttendeeLecture();
 		if(doc == null){
 			Utils.showMessage("Erro", "Não foi possivel carregar o arquivo", this);
 			return;
@@ -173,7 +204,7 @@ public class Configuration extends Activity {
 			Node node = nodeList.item(i);
 			String id = ((Element)node).getAttribute("id");
 			String name = ((Element)node).getAttribute("name");
-			ev.addRoom(new Room(name));
+			ev.addRoom(new Room(Integer.parseInt(id), name));
 			insertLecture(node, ev, name);
 		}
 	}
@@ -186,7 +217,18 @@ public class Configuration extends Activity {
 			String title = ((Element)node).getAttribute("title");
 			String date = ((Element)node).getAttribute("date");
 			ev.addLecture(new Lecture(Integer.parseInt(id), title, date, room));
+			insertAttendeeLecture(Integer.parseInt(id), ev, node);;
+			
 		}
+	}
+	
+	private void insertAttendeeLecture(int lecture, EventHelper ev, Node n){
+		NodeList nodeList = ((Element)n).getElementsByTagName("m");
+		for(int i =0; i < nodeList.getLength(); i++){
+			Node node = nodeList.item(i);
+			String id = ((Element)node).getAttribute("id");
+			ev.addAttendeeLecture(lecture, Integer.parseInt(id)); 
+		}		
 	}
 
 }

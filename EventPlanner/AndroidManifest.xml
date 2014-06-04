@@ -32,6 +32,10 @@
             android:name="br.org.ftsl.eventplanner.Configuration"
             android:label="@string/title_activity_configuration" >
         </activity>
+        <activity
+            android:name="br.org.ftsl.eventplanner.LectureControl"
+            android:label="@string/title_activity_lecture_control" >
+        </activity>
     </application>
 
 </manifest>

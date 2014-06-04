@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class EventHelper extends SQLiteOpenHelper {
 
 	// Database Version
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     // Database Name
     private static final String DATABASE_NAME = "EventDB";
  
@@ -23,6 +23,7 @@ public class EventHelper extends SQLiteOpenHelper {
     private static final String TABLE_Room = "Rooms";
     private static final String TABLE_Lecture = "Lectures";
     private static final String TABLE_Config = "Config";
+    private static final String TABLE_Attendee_Lecture = "Attendee_Lecture";
     
 
     private static final String KEY_ID = "id";
@@ -33,11 +34,14 @@ public class EventHelper extends SQLiteOpenHelper {
     private static final String KEY_ROOM = "room_id";
     private static final String KEY_KEY = "key";
     private static final String KEY_VALUE = "value";
+    private static final String KEY_ATTENDEE = "id_attendee";
+    private static final String KEY_LECTURE = "id_lecture";
 
     private static final String[] COLUMNS_ATTENDEE = {KEY_ID,KEY_NAME,KEY_MAIL};
     private static final String[] COLUMNS_ROOM = {KEY_ID,KEY_NAME};
     private static final String[] COLUMNS_LECTURE = {KEY_ID, KEY_TITLE, KEY_DATE, KEY_ROOM};
     private static final String[] COLUMNS_CONFIG = {KEY_ID, KEY_KEY, KEY_VALUE};
+    private static final String[] COLUMNS_ATTENDEE_LECTURE = {KEY_ID, KEY_KEY, KEY_VALUE};
 	
     
     public EventHelper(Context context) {
@@ -67,11 +71,17 @@ public class EventHelper extends SQLiteOpenHelper {
                 "key TEXT,"+
                 "value TEXT)";
         
+        String CREATE_Attendee_Lecture_TABLE = "CREATE TABLE "+TABLE_Attendee_Lecture+" ( " +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                KEY_ATTENDEE+" INTEGER,"+
+                KEY_LECTURE+" INTEGER)";
+        
         // create Attendees table
         db.execSQL(CREATE_Attendee_TABLE);
         db.execSQL(CREATE_Room_TABLE);
         db.execSQL(CREATE_Room_LECTURE);
         db.execSQL(CREATE_Config_TABLE);
+        db.execSQL(CREATE_Attendee_Lecture_TABLE);
     }
  
     @Override
@@ -80,6 +90,7 @@ public class EventHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_Room+"");
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_Lecture+"");
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_Config+"");
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE_Attendee_Lecture+"");
  
         this.onCreate(db);
     }
@@ -90,6 +101,9 @@ public class EventHelper extends SQLiteOpenHelper {
     	SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
+		if(attendee.getId() > 0){
+			values.put(KEY_ID, attendee.getId());
+		}
 		values.put(KEY_NAME, attendee.getName()); 
 		values.put(KEY_MAIL, attendee.getMail()); // get author
 		
@@ -454,6 +468,8 @@ public class EventHelper extends SQLiteOpenHelper {
     	SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
+		if(lecture.getId() > 0)
+			values.put(KEY_ID, lecture.getId());
 		values.put(KEY_TITLE, lecture.getTitle());
 		values.put(KEY_DATE, lecture.getDate());
 		values.put(KEY_ROOM, lecture.getRoom());
@@ -463,7 +479,7 @@ public class EventHelper extends SQLiteOpenHelper {
 		        values); 
 		
 		db.close();
-}
+    }
     
     public Lecture getLecture(int id){
     	 
@@ -620,5 +636,32 @@ public class EventHelper extends SQLiteOpenHelper {
  
     }
 
+    /*ATTENDEE LECTURE*/
+    public void addAttendeeLecture(int attendee_id, int lecture_id ){
+        
+    	SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+
+		values.put(KEY_LECTURE, lecture_id);
+		values.put(KEY_ATTENDEE, lecture_id);
+		
+		db.insert(TABLE_Attendee_Lecture, 
+		        null, 
+		        values); 
+		
+		db.close();
+    }
+
+    public void deleteAllAttendeeLecture() {
+     	 
+        SQLiteDatabase db = this.getWritableDatabase();
+ 
+        db.delete(TABLE_Attendee_Lecture, //table name
+                null,null); //selections args
+ 
+        db.close();
+   	
+    }
     
 }

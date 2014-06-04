@@ -30,4 +30,14 @@
         android:onClick="config"
         android:text="Config" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignRight="@+id/button2"
+        android:layout_centerVertical="true"
+        android:onClick="showLecture"
+        android:text="Vizualizar Minucurso" />
+
 </RelativeLayout>

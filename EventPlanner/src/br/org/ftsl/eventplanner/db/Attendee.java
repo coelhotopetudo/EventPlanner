@@ -8,6 +8,13 @@ public class Attendee {
  
     public Attendee(){}
  
+    public Attendee(int id, String name, String mail) {
+        super();
+        this._id = id;
+        this.name = name;
+        this.mail = mail;
+    }
+    
     public Attendee(String name, String mail) {
         super();
         this.name = name;
