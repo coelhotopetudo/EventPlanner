@@ -1,10 +1,8 @@
 package br.org.ftsl.eventplanner.db;
 
 public class Lecture {
-	 
 
-	private int id;
-    
+	private int _id;
 	private String title;
     private String date;
     private String room;
@@ -20,18 +18,18 @@ public class Lecture {
     
     public Lecture(int id, String title, String date, String room) {
         super();
-        this.id = id;
+        this._id = id;
         this.title = title;
         this.date = date;
         this.room = room;
     }
  
     public int getId() {
-		return id;
+		return _id;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this._id = id;
 	}
 
 	public String getTitle() {
@@ -62,7 +60,7 @@ public class Lecture {
 	
     @Override
     public String toString() {
-        return "Lecture [id=" + id + ", Titel=" + title+ ", Room=" + room + " Date="+date
+        return "Lecture [id=" + _id + ", Titel=" + title+ ", Room=" + room + " Date="+date
                 + "]";
     }
 }

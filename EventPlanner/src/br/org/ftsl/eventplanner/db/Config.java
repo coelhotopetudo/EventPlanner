@@ -2,10 +2,8 @@ package br.org.ftsl.eventplanner.db;
 
 public class Config {
 	 
-    private int id;
-    
+    private int _id;
 	private String key;
- 
 	private String value;
 	
 	public Config(){}
@@ -16,7 +14,7 @@ public class Config {
     }
      @Override
     public String toString() {
-        return "Room [id=" + id + ", Key=" + key + ", Value="+value+"]";
+        return "Config [id=" + _id + ", Key=" + key + ", Value="+value+"]";
     }
 	public String getValue() {
 		return value;
@@ -31,10 +29,10 @@ public class Config {
 		this.key = key;
 	}
 	public int getId() {
-		return id;
+		return _id;
 	}
 	public void setId(int id) {
-		this.id = id;
+		this._id = id;
 	}
 	
 }

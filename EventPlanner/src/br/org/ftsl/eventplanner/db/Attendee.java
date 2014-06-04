@@ -2,8 +2,7 @@ package br.org.ftsl.eventplanner.db;
 
 public class Attendee {
 	 
-    private int id;
-    
+    private int _id;
 	private String name;
     private String mail;
  
@@ -16,11 +15,11 @@ public class Attendee {
     }
  
     public int getId() {
-		return id;
+		return _id;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this._id = id;
 	}
 
 	public String getName() {
@@ -42,7 +41,7 @@ public class Attendee {
  
     @Override
     public String toString() {
-        return "Book [id=" + id + ", Name=" + name+ ", eMail=" + mail
+        return "Attendee [id=" + _id + ", Name=" + name+ ", eMail=" + mail
                 + "]";
     }
 }
