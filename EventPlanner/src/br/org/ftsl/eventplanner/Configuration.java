@@ -2,7 +2,7 @@ package br.org.ftsl.eventplanner;
 
 import java.util.List;
 
-import org.ftsl.eventplanner.R;
+import br.org.ftsl.eventplanner.R;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

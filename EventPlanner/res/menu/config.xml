@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="org.ftsl.eventplanner.Config" >
+    tools:context="br.org.ftsl.eventplanner.Config" >
 
     <item
         android:id="@+id/action_settings"

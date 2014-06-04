@@ -2,7 +2,7 @@ package br.org.ftsl.eventplanner;
 
 import java.util.List;
 
-import org.ftsl.eventplanner.R;
+import br.org.ftsl.eventplanner.R;
 
 import br.org.ftsl.eventplanner.db.Attendee;
 import br.org.ftsl.eventplanner.db.EventHelper;
