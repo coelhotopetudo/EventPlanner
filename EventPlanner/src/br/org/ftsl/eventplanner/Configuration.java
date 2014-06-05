@@ -47,7 +47,12 @@ public class Configuration extends Activity {
 		
 		EventHelper ev = new EventHelper(getBaseContext());
 		Config c = ev.getConfig(SERVERNAME);
-		urlServer.setText(c.getValue());
+		
+		String value = c.getValue();
+		if (value != null && value.startsWith("http") == false) {
+			value = "https://raw.githubusercontent.com/coelhotopetudo/EventPlanner/master/ftsl/dados.xml";
+		}
+		urlServer.setText(value);
 		
 		spinner1 = (Spinner) findViewById(R.id.spinner1);
 		spinner2 = (Spinner) findViewById(R.id.spinner2);
@@ -155,7 +160,21 @@ public class Configuration extends Activity {
 			return;
 		}
 		WSFunctions ws = new WSFunctions();
-		if(ws.getDocFromUrl("http://"+urlServer.getText()+"/ftsl/dados.xml") != null){
+		
+		String url = null;
+		String digitado = urlServer.getText().toString();
+		if (digitado.startsWith("http") == false) {
+			url = "http://"+digitado+"/ftsl/dados.xml";
+		} else {
+			if ("".equals(digitado)) {
+				url = digitado;
+			} else {
+				url = "https://raw.githubusercontent.com/coelhotopetudo/EventPlanner/master/ftsl/dados.xml";
+			}
+		}
+		
+		Document docFromUrl = ws.getDocFromUrl(url);
+		if(docFromUrl != null){
 			insertAttendee(ws.doc);
 			insertRooms(ws.doc);
 			Utils.showMessage("Sucesso", "Dados atualizados com sucesso", this);
@@ -171,7 +190,7 @@ public class Configuration extends Activity {
 			Utils.showMessage("Erro", "Não foi possivel carregar o arquivo", this);
 			return;
 		}
-		NodeList nodeList = doc.getElementsByTagName("attendees");
+		NodeList nodeList = doc.getElementsByTagName("members");
 		if(nodeList.getLength() < 1){
 			Utils.showMessage("Erro", "Nenhum participante para o evento", this);
 			return;
