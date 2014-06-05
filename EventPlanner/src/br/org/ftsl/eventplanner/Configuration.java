@@ -190,7 +190,7 @@ public class Configuration extends Activity {
 			Utils.showMessage("Erro", "Não foi possivel carregar o arquivo", this);
 			return;
 		}
-		NodeList nodeList = doc.getElementsByTagName("members");
+		NodeList nodeList = doc.getElementsByTagName("attendees");
 		if(nodeList.getLength() < 1){
 			Utils.showMessage("Erro", "Nenhum participante para o evento", this);
 			return;
@@ -198,11 +198,11 @@ public class Configuration extends Activity {
 		
 		Node nodeAtt = nodeList.item(0);
 		
-		NodeList nodeListAtt = ((Element)nodeAtt).getElementsByTagName("m");
+		NodeList nodeListAtt = ((Element)nodeAtt).getElementsByTagName("mbr");
 		
 		for(int i =0; i < nodeListAtt.getLength(); i++){
 			Node node = nodeListAtt.item(i);
-			String id = ((Element)node).getAttribute("id");
+			String id = ((Element)node).getAttribute("mbr_id");
 			String name = ((Element)node).getAttribute("n");
 			String mail = ((Element)node).getAttribute("e");
 			ev.addAttendee(new Attendee(Integer.parseInt(id), name, mail));
