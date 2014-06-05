@@ -8,3 +8,6 @@ QR code para eventos.
 - Na entrada da palesta a pessoa apresenta o o QRcode que é lido pela aplicação confirmando ou não se a pessoa está inscrita e em caso positivo cadastra presença do mesmo.
 - No final é feito acesso ao webservice que descarrega as informações de presença do celular no sistema.
 
+Módulos:
+- EventPlanner aplicação Android para coletar (lendo o QR code) e confirmar os inscritos. Possui um banco de dados local (no app)
+- ftsl aplicação PHP que gera QR code e que pode fornecer os dados (dados.xml) base para o coletor
