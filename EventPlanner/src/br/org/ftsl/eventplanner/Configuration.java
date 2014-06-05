@@ -37,7 +37,7 @@ public class Configuration extends Activity {
 	private Spinner spinner2;
 	
 	static final String SERVERNAME = "ServerName";
-	
+	static final String DEFAULT_LECTURE = "DefaultLecture";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,22 @@ public class Configuration extends Activity {
 		    }
 
 		});
+		
+		spinner2.setOnItemSelectedListener(new OnItemSelectedListener() {
+		    @Override
+		    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+		    	EventHelper ev = new EventHelper(Configuration.this);
+		    	Lecture l = ev.getLectureByTitle(spinner2.getSelectedItem().toString());
+				ev.setConfig(new Config(DEFAULT_LECTURE, ""+l.getId()));
+		    }
+
+		    @Override
+		    public void onNothingSelected(AdapterView<?> parentView) {
+		        // your code here
+		    }
+
+		});
+		
 		
 		loadEventData(ev);
 		
@@ -124,22 +140,6 @@ public class Configuration extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_config,
-					container, false);
-			return rootView;
-		}
-	}
 	
 	public void setServer(View view){
 		EventHelper ev = new EventHelper(this);
@@ -217,7 +217,7 @@ public class Configuration extends Activity {
 			String title = ((Element)node).getAttribute("title");
 			String date = ((Element)node).getAttribute("date");
 			ev.addLecture(new Lecture(Integer.parseInt(id), title, date, room));
-			insertAttendeeLecture(Integer.parseInt(id), ev, node);;
+			insertAttendeeLecture(Integer.parseInt(id), ev, node);
 			
 		}
 	}

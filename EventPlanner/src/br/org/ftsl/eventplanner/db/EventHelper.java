@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class EventHelper extends SQLiteOpenHelper {
 
 	// Database Version
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
     // Database Name
     private static final String DATABASE_NAME = "EventDB";
  
@@ -121,6 +121,9 @@ public class EventHelper extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put(KEY_KEY, conf.getKey());
 		values.put(KEY_VALUE, conf.getValue());
+		
+		conf.setId((getConfig(conf.getKey())).getId());
+		
 		long ret;
 		if(conf.getId() > 0){
 			ret = db.update(TABLE_Config, 
@@ -230,6 +233,26 @@ public class EventHelper extends SQLiteOpenHelper {
         }
         return a;
     }
+
+
+    public ArrayList<String> getAttendeesByLecture(int lecture_id) {
+        ArrayList<String> attendees = new ArrayList<String>();
+  
+        String query = "SELECT  * FROM " + TABLE_Attendee +
+        		" a,"+ TABLE_Attendee_Lecture +" al WHERE a.id = al."+
+        		KEY_ATTENDEE + " and "+KEY_LECTURE+"="+lecture_id;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+ 
+        if (cursor.moveToFirst()) {
+            do {
+                attendees.add(cursor.getString(1));
+            } while (cursor.moveToNext());
+        }
+        return attendees;
+    }
+    
     
     public List<Attendee> getAllAttendees() {
         List<Attendee> attendees = new LinkedList<Attendee>();
@@ -485,10 +508,10 @@ public class EventHelper extends SQLiteOpenHelper {
     	 
         
         SQLiteDatabase db = this.getReadableDatabase();
-     
+     try{
         Cursor cursor =
                 db.query(TABLE_Lecture, 
-                COLUMNS_ROOM, 
+                COLUMNS_LECTURE, 
                 " id = ?", 
                 new String[] { String.valueOf(id) }, // d. selections args
                 null, 
@@ -507,6 +530,10 @@ public class EventHelper extends SQLiteOpenHelper {
         l.setRoom(cursor.getString(3));
       
         return l;
+     }catch(Exception e){
+    	 e.getMessage();
+     }
+     return new Lecture();
     }
     
     public void deleteAllLecture() {
@@ -521,7 +548,7 @@ public class EventHelper extends SQLiteOpenHelper {
     }
     
     
-    public Lecture getLectureByName(String name){
+    public Lecture getLectureByTitle(String title){
     	 
         
         SQLiteDatabase db = this.getReadableDatabase();
@@ -529,8 +556,8 @@ public class EventHelper extends SQLiteOpenHelper {
         Cursor cursor =
                 db.query(TABLE_Lecture, // a. table
                 COLUMNS_LECTURE, 
-                " name = ?", 
-                new String[] {name}, 
+                " title = ?", 
+                new String[] {title}, 
                 null, 
                 null, 
                 null, 
@@ -644,7 +671,7 @@ public class EventHelper extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 
 		values.put(KEY_LECTURE, lecture_id);
-		values.put(KEY_ATTENDEE, lecture_id);
+		values.put(KEY_ATTENDEE, attendee_id);
 		
 		db.insert(TABLE_Attendee_Lecture, 
 		        null, 

@@ -1,10 +1,13 @@
 package br.org.ftsl.eventplanner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import br.org.ftsl.eventplanner.db.Config;
 import br.org.ftsl.eventplanner.db.EventHelper;
+import br.org.ftsl.eventplanner.db.Lecture;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,25 +15,35 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class LectureControl extends Activity {
-
+	private ListView mainListView ;  
+	private ArrayAdapter<String> listAdapter ;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lecture_control);
 		
 		EventHelper ev = new EventHelper(getBaseContext());
+		Config lecture_default = ev.getConfig(Configuration.DEFAULT_LECTURE);
+		Lecture lecture = ev.getLecture(Integer.parseInt(lecture_default.getValue()));
 		
 		ListView listview =(ListView) findViewById(R.id.listView1);	
+		TextView title =(TextView) findViewById(R.id.textView1);
+		title.setText(lecture.getTitle());
 		
-		final ArrayList<String> list = new ArrayList<String>();
-		
-		//SimpleAdapter simpleAdpt = new SimpleAdapter(this, list, R.layout.item, );
-		
+			
+		ArrayList<String> planetList = ev.getAttendeesByLecture(Integer.parseInt(lecture_default.getValue()));  
+	    
+	    listAdapter = new ArrayAdapter<String>(this, R.layout.confirm_lecture, planetList); 
+	    
+	    listview.setAdapter( listAdapter );   
 		
 	}
 
@@ -65,9 +78,8 @@ public class LectureControl extends Activity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_lecture_control,
-					container, false);
-			return rootView;
+			
+			return null;
 		}
 	}
 
