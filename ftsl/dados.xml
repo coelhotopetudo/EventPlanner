@@ -24,7 +24,7 @@
 			</lecture>
 		</lectures>
 	</room>
-	<room id="2" name="Sala 2">
+	<room id="2" name="Lab 2">
 		<lectures>
 			<lecture id="4" title="Palestra 4" date="01/05/2014 14:00">
 				<members>
