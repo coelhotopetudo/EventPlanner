@@ -11,3 +11,6 @@ QR code para eventos.
 Módulos:
 - EventPlanner aplicação Android para coletar (lendo o QR code) e confirmar os inscritos. Possui um banco de dados local (no app)
 - ftsl aplicação PHP que gera QR code e que pode fornecer os dados (dados.xml) base para o coletor
+
+Acesse a wiki:
+https://github.com/coelhotopetudo/EventPlanner/wiki
