@@ -7,12 +7,10 @@
 			<lecture id="1" title="Palestra 1" date="01/05/2014 12:00">
 				<members>
 					<m id="1"/>
-					<m id="2"/>
 				</members>
 			</lecture>
 			<lecture id="2" title="Palestra 2" date="02/05/2014 13:00">
 				<members>
-					<m id="1"/>
 					<m id="2"/>
 				</members>
 			</lecture>
