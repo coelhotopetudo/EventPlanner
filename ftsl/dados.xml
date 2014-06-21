@@ -16,8 +16,7 @@
 			</lecture>
 			<lecture id="3" title="Palestra 3" date="01/05/2014 14:00">
 				<members>
-					<m id="1"/>
-					<m id="2"/>
+					<m id="3"/>
 				</members>
 			</lecture>
 		</lectures>
@@ -55,5 +54,6 @@
 	<attendees>
 		<mbr mbr_id="1" n="Fabiano Kuss" e="fabiano.kuss@gmail.com"/>
 		<mbr mbr_id="2" n="Fabiano Serpro" e="fabiano.kuss@serpro.gov.br"/>
+		<mbr mbr_id="3" n="Clh tpt" e="coelhotopetudo@teste.com"/>
 	</attendees>
 </event>
